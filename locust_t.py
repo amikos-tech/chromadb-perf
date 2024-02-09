@@ -7,18 +7,28 @@ from locust import task, User, events, between
 import chromadb
 
 
+@events.init_command_line_parser.add_listener
+def _(parser):
+    parser.add_argument("--batch-size", type=int, default=int(os.getenv('BATCH_SIZE', '100')), help="Batch Size")
+    # parser.add_argument("--env", choices=["dev", "staging", "prod"], default="dev", help="Environment")
+    parser.add_argument("--dimensions", type=int, default=int(os.getenv('DIMENSIONS', '1536')),
+                        help="The number of dimensions for the embeddings")
+    parser.add_argument("--collection", type=str, default="my_collection",
+                        help="The name of the collection to use for the test")
+
+
 class UserBehavior(User):
-    wait_time = between(0.1, 0.2)
+    wait_time = between(0.01, 0.02)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.batch_size = int(os.getenv('BATCH_SIZE', '100'))
-        self.dimensions = int(os.getenv('DIMENSIONS', '1536'))
+        self.batch_size = self.environment.parsed_options.batch_size
+        self.dimensions = self.environment.parsed_options.dimensions
 
     def on_start(self):
         try:
             self.client = chromadb.HttpClient()
-            self.collection = self.client.create_collection("test_collection")
+            self.collection = self.client.create_collection(self.environment.parsed_options.collection)
         except Exception as e:
             print(e)
 

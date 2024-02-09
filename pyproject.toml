@@ -10,6 +10,9 @@ python = "^3.11"
 fastapi = "^0.109.2"
 orjson = "^3.9.13"
 chromadb = "^0.4.22"
+locust = "^2.22.0"
+pandas = "^2.2.0"
+matplotlib = "^3.8.2"
 
 
 [build-system]
