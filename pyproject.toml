@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "chromadb-perf"
+version = "0.1.0"
+description = ""
+authors = ["Trayan Azarov <trayan.azarov@amikos.tech>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.109.2"
+orjson = "^3.9.13"
+chromadb = "^0.4.22"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
