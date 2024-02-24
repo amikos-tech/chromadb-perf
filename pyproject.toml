@@ -13,7 +13,7 @@ chromadb = "^0.4.22"
 locust = "^2.22.0"
 pandas = "^2.2.0"
 matplotlib = "^3.8.2"
-
+python-dotenv = "^1.0.1"
 
 [build-system]
 requires = ["poetry-core"]
